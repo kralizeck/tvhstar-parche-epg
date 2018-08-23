@@ -1,6 +1,8 @@
-Tiempos de ejecución y tamaño de ficheros en los distintos pasos y total:
+Tiempos de ejecución y tamaño de ficheros en los distintos pasos y tiempo total requerido:
+
 Prueba a lo borrico...
-./parche-epga.sh 100
+
+./parche-epg.sh 100
 pido la guía para 100 días, me la da de lo que tiene (del 2018-08-23 al 2018-09-30)
 
 
