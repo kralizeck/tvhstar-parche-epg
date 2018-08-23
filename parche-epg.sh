@@ -2,7 +2,6 @@
 
 # recibe el número de días a pedir de guía y edita el fichero data.xt (usado para petición de curl), cambiando la fecha desde (hoy) y la fecha hasta (hoy+días)
 
-
 # parámetro recibido
 dias=$1
 
