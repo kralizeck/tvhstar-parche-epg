@@ -19,7 +19,7 @@ hasta=`date -j -r $hasta +"%Y-%m-%d"`
 #edición de data.txt con las nuevas fechas desde y hasta
 perl -p -i'.bak' -e "s/&export-date-from=\d{4}-\d{2}-\d{2}/&export-date-from=$desde/; s/&export-date-to=\d{4}-\d{2}-\d{2}/&export-date-to=$hasta/;" data.txt
 
-echo "\nSolicitando la guía desde el $desde al $hasta...\n"
+echo -e "\nSolicitando la guía desde el $desde al $hasta...\n"
 
 # descarga del xml de movistar. Todos los canales excepto alquiler
 curl 'http://comunicacion.movistarplus.es/wp-admin/admin-post.php' -H 'Connection: keep-alive' -H 'Cache-Control: max-age=0' -H 'Origin: http://comunicacion.movistarplus.es' -H 'Upgrade-Insecure-Requests: 1' -H 'Content-Type: application/x-www-form-urlencoded' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8' -H 'Referer: http://comunicacion.movistarplus.es/programacion/' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: es,en;q=0.9,es-ES;q=0.8' --data "@data.txt" --compressed -o $ficheroXML
