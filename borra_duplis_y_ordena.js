@@ -5,10 +5,9 @@
 //	node borra_duplis_y_ordena.js ficheroXML
 //	=========================================================
 //
-//	Este program procesa un archivo xml con la guía de movistar, realizando dos procesos:
+//	Este program procesa un archivo xml con la guía de movistar, realizando dos tareas:
 //	  1.- elimina los posibles pases duplicados (misma cadena, día y hora)
 //	  2.- en cada grupo de pases para una cadena-día, ordena los pases por horas (ascendente)
-//
 
 const fichero = process.argv[2]; // el fichero a procesar
 const ficheroXML = '/tmp/guia.movistar-xml.xml'; // fichero de salida
