@@ -1,0 +1,82 @@
+Tiempos de ejecución y tamaño de ficheros en los distintos pasos y total:
+Prueba a lo borrico...
+./parche-epga.sh 100
+pido la guía para 100 días, me la da de lo que tiene (del 2018-08-23 al 2018-09-30)
+
+
+curl (descarga xml de la web, todas las cadenas, excepto alquiler y 31 días)
+		% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+																	 Dload  Upload   Total   Spent    Left  Speed
+	100 12.5M    0 12.5M  100  4116   819k    262  0:00:15  0:00:15 --:--:-- 2089k
+
+	real    0m15,707s
+	user    0m0,550s
+	sys     0m0,186s
+
+	tamaño /tmp/guia.movistar-xml-TMP.xml: 196MB
+
+perl (convierte xml nuevo a viejuno)
+	real    0m3,513s
+	user    0m3,454s
+	sys     0m0,059s
+
+	tamaño /tmp/guia.movistar-xml-TMP.xml: 170MB
+
+	
+borra_duplis_y_ordena.js:
+	Procesando xml /tmp/guia.movistar-xml-TMP.xml
+	---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+	1 - Total pases inciales: 196280
+	2 - Pases duplicados eliminados: 124034
+	3 - Total pases finales: 72246
+	4 - Ordenando 72246 pases
+			Total pares de pases comparados: 327554
+	5 - Total cadenas: 108 (pases totales: 72246 )
+	---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+	Escrito nuevo xml en /tmp/guia.movistar-xml.xml
+	Ya se puede pasar a tvhstar para que haga su magia...
+
+	real    0m24,233s
+	user    0m29,130s
+	sys     0m1,244s
+	tamaño /tmp/guia.movistar-xml.xml: 56MB (dos tercios de los pases estaban repetidos)
+	
+tvhstar.sh
+	Inicio del ciclo de consulta del EPG
+	---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+	1 - Descarga del EPG XML Movistar
+		=> PORT http://comunicacion.movistarplus.es/guiaProgramacion/exportarProgramacion
+		=> EPG 2018-08-23 -> 2018-09-05
+	1 - Descarga del EPG XML Movistar - OK
+	2 - Leyendo el fichero XML de movistar /tmp/guia.movistar-xml.xml
+	2 - Leyendo el fichero XML de movistar /tmp/guia.movistar-xml.xml - OK
+	3 - Parsing de XML(movistar) a JSON(movistar)
+	3 - Parsing de XML(movistar) a JSON(movistar) - OK
+	4 - Salva JSON Movistar /tmp/guia.movistar-xml.json
+	4 - Salva JSON Movistar /tmp/guia.movistar-xml.json - OK
+	5 - Convierte JSON(movistar) a JSONTV
+	5 - Convierte JSON(movistar) a JSONTV - OK
+	6 - Salva JSONTV /tmp/guia.movistar-xmltv.json
+	6 - Salva JSONTV /tmp/guia.movistar-xmltv.json - OK
+	7 - Convierte JSONTV a XMLTV
+	7 - Convierte JSONTV a XMLTV - OK
+	8 - Salva XMLTV tvhstar/tvheadend/guia.xml
+	8 - Salva XMLTV tvhstar/tvheadend/guia.xml - OK
+
+	Hecho!! - 108 canales y 72244 pases
+	Fin de ejecución
+
+	real    0m11,299s
+	user    0m13,804s
+	sys     0m0,965s
+
+	Tamaños archivos generados por tvhstar:
+		72M guia.movistar-xml.json
+		90M guia.movistar-xmltv.json
+		48M guia.xml
+
+Tiempo total de ejecución:
+	real    0m54,777s
+	user    0m46,956s
+	sys     0m2,463s
+
