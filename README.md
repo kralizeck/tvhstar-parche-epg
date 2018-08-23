@@ -6,6 +6,7 @@ Estos parches hacen uso de [tvhstar](https://github.com/LuisPalacios/tvhstar) pa
 En este repo sólo se encuentran los archivos nuevos y/o modificados del proyecto tvhstar.
 
 No esperes código bonito ni refinado... me he gastado los ojos investigando, comprendiendo y parcheando como he podido (un poco de bash, otro poco de perl, algo más de node.js...), para poder tener una guía funcional en tvheadend.
+Acepto encantado todas las correciones o mejoras que puedas aportar. ¡Gracias!
 
 ## Uso
 Revisa el código del script bash y del js para editar las rutas de los archivos a generar:
