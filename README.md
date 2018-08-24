@@ -29,13 +29,14 @@ Todos se descargan donde tengas instalado tvhstar.
 
 - `parche-epg.sh`: script principal del invento. Le indicamos el número de días que queremos y él edita el `data.txt`, descarga el xml de movistar, lo "arregla" para que tvhstar lo entienda y lanza tvhstar para que se genere el xml para tvheadend. Edítalo y revisa los valores de:
 
- ficheroXML='/tmp/guia.movistar-xml-TMP.xml' # fichero de destino
- ficherodata='data.txt'
+    ficheroXML='/tmp/guia.movistar-xml-TMP.xml' # fichero de destino
+	
+    ficherodata='data.txt'
 
 - `borra_duplis_y_ordena.js`: script node.js ejecutado por `parche-epg.sh` para eliminar pases duplicados (la nueva web es un poco "loca" repitiendo pases), ordenarlos por hora dentro de cada día/cadena (vienen medio desordenados desde la web). Edítalo y revisa el valor de:
 
- const ficheroXML = '/tmp/guia.movistar-xml.xml'; // fichero de salida
- (¡Ojo!:  tendrá que ser igual que el valor de "ficheroXMLTV" en src/server.js)
+    const ficheroXML = '/tmp/guia.movistar-xml.xml'; // fichero de salida
+    ¡Ojo!:  tendrá que ser igual que el valor de "ficheroXMLTV" en src/server.js)
  
 - `data.txt`: usado por script `parche-epg.sh` para descargar la guía desde la [web de movistar](http://comunicacion.movistarplus.es/programacion/), está configurado para descargar todos los canales, excepto los de alquiler. No hay que editar nada en él. Si quieres cambiar los canales a descargar tendrás que ver (con el debugger de chrome, por ejemplo) una petición POST de lo que te interesa y modificar el data.txt... ya lo documentaré en otro momento.
 
