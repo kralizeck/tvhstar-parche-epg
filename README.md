@@ -1,14 +1,26 @@
 ## Introducción
 Parches para descarga y procesado de guía movistar desde nueva web de programación: http://comunicacion.movistarplus.es/programacion/
 
-## Aviso
-Estos parches hacen uso de [tvhstar](https://github.com/LuisPalacios/tvhstar) para el procesado final del xml y que pueda ser consumido por tvheadend.
-En este repo sólo se encuentran los archivos nuevos y/o modificados del proyecto tvhstar.
+Estos parches hacen uso de [tvhstar](https://github.com/LuisPalacios/tvhstar) para el procesado final del xml y que pueda ser consumido por tvheadend. Sólo modifico el archivos src/server.js de tvhstar (¡¡¡haz copia antes de pisarlo!!!).
 
-No esperes código bonito ni refinado... me he gastado los ojos investigando, comprendiendo y parcheando como he podido (un poco de bash, otro poco de perl, algo más de node.js...), para poder tener una guía funcional en tvheadend.
+Mi script de bash y el de node.js realizan lo siguiente:
+1- descarga de un xml con la guía de todos los canales (excepto alquiler) desde la nueva web de movistar, para el número de días que le indiquemos
+2- edición del xml descargado para que tenga un formato entendible por tvhstar y que pueda prepararlo para tvheadend
+
+## Aviso
+No esperes código bonito, ni refinado, ni mucho control de errores... me he gastado los ojos investigando, comprendiendo y parcheando como he podido (un poco de bash, otro poco de perl, algo más de node.js...), para poder tener una guía funcional en tvheadend.
+
+Mi sistema es FreeBSD 11.1, así que puede haber "pequeñas diferencias" si usas otro sistema... rutas de bash, perl, curl, node... opciones de los comandos usados... cosas así.
+
 Acepto encantado todas las correciones o mejoras que puedas aportar. ¡Gracias!
 
 ## Uso
+
+### tvhstar
+Tienes que tener correctamente descargado y configurado [tvhstar](https://github.com/LuisPalacios/tvhstar)
+
+Haz copia de tu fichero `src/server.js` (tendrás que recupear de él todas tus Constantes, con los nombres y rutas de ficheros)
+
 Revisa el código del script bash y del js para editar las rutas de los archivos a generar:
 
 En `parche-epg.sh`:
