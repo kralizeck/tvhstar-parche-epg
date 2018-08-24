@@ -13,7 +13,16 @@ No esperes código bonito, ni refinado, ni mucho control de errores... me he gas
 
 Mi sistema es FreeBSD 11.1, así que puede haber "pequeñas diferencias" si usas otro sistema... rutas de bash, perl, curl, node... opciones de los comandos usados... cosas así.
 
+He intentado hacerlo compatible con linux (¡Gracias! @gedas07), más abajo están los requisitos.
+
 Acepto encantado todas las correciones o mejoras que puedas aportar. ¡Gracias!
+
+## Requisitos
+- proyecto [tvhstar](https://github.com/LuisPalacios/tvhstar) instalado y configurado (["Configuración de tvhstar"](https://github.com/LuisPalacios/tvhstar/blob/master/README.md#configuraci%C3%B3n))
+- bash
+- curl (probado con v7.61.0)
+- perl (probado con v5.26.2)
+- node.js (probado con v10.7.0)
 
 ## Uso
 
