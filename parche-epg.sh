@@ -16,7 +16,8 @@ dias=$1
 
 # variables
 ficheroXML='/tmp/guia.movistar-xml-TMP.xml' # fichero de destino
-ficherodata='data-test.txt'
+ficherodata='data.txt'
+
 sdias=86400 # segundos por día
 dias=$((dias*sdias)) # días pedidos pasados a segundos
 desde=`date "+%s"` # fecha actual en formato epoch
