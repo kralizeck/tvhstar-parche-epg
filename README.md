@@ -13,9 +13,9 @@ No esperes código bonito, ni refinado, ni mucho control de errores... me he gas
 
 Mi sistema es FreeBSD 11.1, así que puede haber "pequeñas diferencias" si usas otro sistema... rutas de bash, perl, curl, node... opciones de los comandos usados... cosas así.
 
-He intentado hacerlo compatible con linux (¡Gracias! @gedas07), más abajo están los requisitos.
+He intentado hacerlo compatible con linux (¡gracias! @gedas07), más abajo están los requisitos.
 
-Acepto encantado todas las correciones o mejoras que puedas aportar. ¡Gracias!
+Acepto encantado todas las correciones o mejoras que puedas aportar. ¡¡Gracias!!
 
 ## Requisitos
 - proyecto [tvhstar](https://github.com/LuisPalacios/tvhstar) instalado y configurado (["Configuración de tvhstar"](https://github.com/LuisPalacios/tvhstar/blob/master/README.md#configuraci%C3%B3n))
@@ -48,7 +48,7 @@ ficheroXML='/tmp/guia.movistar-xml-TMP.xml' # fichero de destino
 const ficheroXML = '/tmp/guia.movistar-xml.xml'; // fichero de salida
 ```
 		
-    **_¡CRÍTICO!_**:   tendrá que ser igual que el valor de "ficheroXML" en src/server.js
+**_¡CRÍTICO!_**:   tendrá que ser igual que el valor de "ficheroXML" en src/server.js
  
 - `data.txt`: usado por script `parche-epg.sh` para descargar la guía desde la [web de movistar](http://comunicacion.movistarplus.es/programacion/), está configurado para descargar todos los canales, excepto los de alquiler. No hay que editar nada en él. De las fechas ya se encarga `parche-epg.sh`. Si quieres cambiar los canales a descargar tendrás que ver (con el debugger de chrome, por ejemplo) una petición POST de lo que te interesa y modificar el data.txt... ya lo documentaré en otro momento.
 
@@ -61,7 +61,7 @@ Desde el directorio de tvhstar ejecuta:
 ./parche-epg.sh días
 ```
  
-> **día** = número de días que se quieren de la guía, p.ej. /.parche-epg.sh 7
+> **días** = número de días que se quieren de la guía, p.ej. /.parche-epg.sh 7
 
 **NO HAY** que ejectuar `tvhstar.sh` después. El script parche-epg lo lanzará cuando termine de descargar y preparar el xml de la guía.
 
