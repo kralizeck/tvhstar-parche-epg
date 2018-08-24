@@ -44,7 +44,7 @@ Y ya está. No se necesita más. El resto de ficheros son de estadísticas y pru
 ### Ejecución
 Desde el directorio de tvhstar ejecuta:
 
- tvhstar $ ./parche-epg.sh días
+ ./parche-epg.sh días
  
  días = número de días que se quieren de la guía, p.ej. /.parche-epg.sh 7
 
