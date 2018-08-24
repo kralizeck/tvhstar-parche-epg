@@ -35,7 +35,7 @@ Todos se descargan donde tengas instalado tvhstar.
 
     const ficheroXML = '/tmp/guia.movistar-xml.xml'; // fichero de salida
 		
-    ¡Ojo!:  tendrá que ser igual que el valor de "ficheroXMLTV" en src/server.js
+    ¡Ojo!:  tendrá que ser igual que el valor de "ficheroXML" en src/server.js
  
 - `data.txt`: usado por script `parche-epg.sh` para descargar la guía desde la [web de movistar](http://comunicacion.movistarplus.es/programacion/), está configurado para descargar todos los canales, excepto los de alquiler. No hay que editar nada en él. De las fechas ya se encarga `parche-epg.sh`. Si quieres cambiar los canales a descargar tendrás que ver (con el debugger de chrome, por ejemplo) una petición POST de lo que te interesa y modificar el data.txt... ya lo documentaré en otro momento.
 
