@@ -6,6 +6,15 @@
 //  para bajarse el EPG. Además, al arrancar, crea los 
 //  ficheros /tmp/tvHOME.m3u y /tmp/tvREMOTE.m3u
 //
+
+//
+// kralizeck 2018/08/24
+//
+// - Desactivada la descarga del fichero desde la web de movistar, para
+// usar el descargado y preparado por el script parche-egp.sh
+// - Desactivada ejecución en segundo plano
+//
+
 'use strict';
 
 // Imports
@@ -46,9 +55,9 @@ let progPreferences = {
   // M3U: 
   // 
   // Nombre del fichero de salida donde dejaré la lista de canales IPTV de cadenasHOME.js
-  ficheroM3U_HOME: '/home/fernan/incoming/piniculas/wetek/tvhstar/tvheadend/tvHOME.m3u',
+  ficheroM3U_HOME: '/tmp/tvHOME.m3u',
   // Nombre del fichero de salida donde dejaré la lista de canales IPTV de cadenasREMOTE.js
-  ficheroM3U_REMOTE: '/home/fernan/incoming/piniculas/wetek/tvhstar/tvheadend/tvREMOTE.m3u',
+  ficheroM3U_REMOTE: '/tmp/tvREMOTE.m3u',
 
   // Durante la creación del fichero ficheroM3U_HOME se pone la URL del canal, pero como 
   // tenemos dos opciones (UDP o TCP) a continuación debes modificar la siguiente
@@ -60,8 +69,7 @@ let progPreferences = {
   // Ejemplos con UDP y TCP: 
   // uri_prefix: 'rtp://@'
   // uri_prefix: 'http://x.x.x.x:yyy/udp/'
-  // uri_prefix: 'http://192.168.100.1:4022/udp/',
-  uri_prefix: 'rtp://@',
+  uri_prefix: 'http://192.168.100.1:4022/udp/',
 
   // Respecto a XMLTV, el objetivo es crear un fichero XMLTV compatible con
   // "http://xmltv.cvs.sourceforge.net/viewvc/xmltv/xmltv/xmltv.dtd"
@@ -80,7 +88,7 @@ let progPreferences = {
   ficheroJSONTV: '/tmp/guia.movistar-xmltv.json',
   //
   // Fichero final:
-  ficheroXMLTV: '/home/fernan/incoming/piniculas/wetek/tvhstar/tvheadend/guia.xml',
+  ficheroXMLTV: '/home/luis/guia/guia.xml',
 
   // 
   // El programa ejecutará una descarga del EPG nada más arrancar y se quedará 
@@ -100,11 +108,8 @@ let progPreferences = {
   // dias: número de días de EPG que vamos a solicitar. Nota: he configurado
   //       hardcoded que el máximo aceptado sean 7 (para no cargar a los 
   //       servidores de movistar). 
-  // urlMovistar: 'http://comunicacion.movistarplus.es/guiaProgramacion/exportar',
-  // urlMovistar: 'http://comunicacion.movistarplus.es/programacion', //falla, no hace ná
-  // urlMovistar: 'http://comunicacion.movistarplus.es/wp-admin/admin-post.php', // 2018.08 - nueva url (más o menos)
-  urlMovistar: 'http://comunicacion.movistarplus.es/guiaProgramacion/exportarProgramacion',
-  dias: 14,
+  urlMovistar: 'http://comunicacion.movistarplus.es/guiaProgramacion/exportar',
+  dias: 7,
 
   // Gestión sobre cuando toca el siguiente ciclo de descarga.
   nextRunDate: 0,
@@ -208,7 +213,9 @@ function sessionController() {
     console.log(`1 - Descarga del EPG XML Movistar`);
     console.log(`  => PORT ${progPreferences.urlMovistar}`);
     console.log(`  => EPG ${progPreferences.diasInicioFin.fechaInicio} -> ${progPreferences.diasInicioFin.fechaFin}`);
-    conversionCompletaDeEPGaXMLTV();
+
+    // desactivada descarga y salto a la conversión a xml de tvheadend
+		conversionCompletaDeEPGaXMLTV();
 		
     // Movistar.requestEPG(progPreferences)
       // .then((response) => {
@@ -325,7 +332,7 @@ function monitorConversion() {
     // le toca...
     // console.log(`Programo próxima descarga para el: ${JSON.stringify(progPreferences.nextRunDate.toString())} quedan ${Utils.convertirTiempo(progPreferences.nextRunMilisegundos)}`);
     console.log(`Fin de ejecución`);
-		process.exit(); // PARCHE - salgo del proceso
+		process.exit(); // salgo del proceso
     timerSessionController = setInterval(function () {
       sessionController();
     }, progPreferences.nextRunMilisegundos);
