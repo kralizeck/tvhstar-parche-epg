@@ -54,12 +54,12 @@ echo -e "\nSolicitando la guía desde el $desde al $hasta...\n"
 # descarga del xml de movistar. Todos los canales excepto alquiler
 curl 'http://comunicacion.movistarplus.es/wp-admin/admin-post.php' -H 'Connection: keep-alive' -H 'Cache-Control: max-age=0' -H 'Origin: http://comunicacion.movistarplus.es' -H 'Upgrade-Insecure-Requests: 1' -H 'Content-Type: application/x-www-form-urlencoded' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8' -H 'Referer: http://comunicacion.movistarplus.es/programacion/' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: es,en;q=0.9,es-ES;q=0.8' --data "@$ficherodata" --compressed -o $ficheroXML
 
-# control de errores básico - curl - DESACTIVADO por ahora... no parece funcionar en linux
-# sizefichero=`stat -f%z $ficheroXML`
-# if [ "$sizefichero" -eq 0 ]; then 
-		# echo ">>>> ERROR <<<< al descargar $ficheroXML - fichero de tamaño $sizefichero" # error cuando no puede conectar con la página o cosas así
-		# exit
-# fi
+# control de errores básico - curl
+sizefichero=`perl -le 'print -s $ARGV[0]' $ficheroXML`
+if [ "$sizefichero" -eq 0 ]; then 
+		echo -e ">>>> ERROR <<<< al descargar $ficheroXML - fichero de tamaño $sizefichero\n" # error cuando no puede conectar con la página o no hay datos de canales
+		exit
+fi
 
 ##########
 #	Paso 3 #
