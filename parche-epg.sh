@@ -43,7 +43,7 @@ desde=`perl -MPOSIX -le 'print strftime("%Y-%m-%d",localtime($ARGV[0]))' $desde`
 hasta=`perl -MPOSIX -le 'print strftime("%Y-%m-%d",localtime($ARGV[0]))' $hasta`
 
 #edición de data.txt con las nuevas fechas desde y hasta
-perl -p -i'.bak' -e "s/&export-date-from=\d{4}-\d{2}-\d{2}/&export-date-from=$desde/; s/&export-date-to=\d{4}-\d{2}-\d{2}/&export-date-to=$hasta/;" data.txt
+perl -p -i'.bak' -e "s/&export-date-from=.*?&/&export-date-from=$desde&/; s/&export-date-to=.*?&/&export-date-to=$hasta&/;" $ficherodata
 
 ##########
 #	Paso 2 #
