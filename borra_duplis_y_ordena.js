@@ -8,12 +8,13 @@
 //	Este program procesa un archivo xml con la guía de movistar, realizando dos tareas:
 //	  1.- elimina los posibles pases duplicados (misma cadena, día y hora)
 //	  2.- en cada grupo de pases para una cadena-día, ordena los pases por horas (ascendente)
+//
 
 const fichero = process.argv[2]; // el fichero a procesar
 const ficheroXML = '/tmp/guia.movistar-xml.xml'; // fichero de salida
 
-// contadores para los totales de pases eliminados, pares de pases comparados, número de canales
-var contador_eliminados = 0, contador_pares = 0, contador_canales = []; 
+// contadores para los totales de pases eliminados, pares de pases comparados, pases reordenados, número de canales
+var contador_eliminados = 0, contador_pares = 0, contador_reordenados = 0, contador_canales = []; 
 
 // =========================================================
 // Funciones
@@ -28,7 +29,9 @@ function ordenaPases(pases_a_ordenar) {
 			if (a.hora < b.hora)
 				return -1;
 			if (a.hora > b.hora)
+				contador_reordenados++;
 				return 1;
+			}
 			return 0;
 		});
 }
@@ -112,7 +115,7 @@ fs.readFile(fichero, 'utf-8', function (err, data){
 			}
 			i++;
 		}
-		console.log("    Total pares de pases comparados:", contador_pares);
+		console.log("    Total pares de pases comparados:", contador_pares, "- pases reordenados:", contador_reordenados);
 		
 		var total_canales = contador_canales.length; // ya, ya, debería ser +1... pero así se queda...
 		console.log("5 - Total cadenas:", total_canales, "(pases totales:", pases + 1, ")");
