@@ -28,7 +28,7 @@ function ordenaPases(pases_a_ordenar) {
 			var x = a.hora, y = b.hora;
 			if (a.hora < b.hora)
 				return -1;
-			if (a.hora > b.hora)
+			if (a.hora > b.hora) {
 				contador_reordenados++;
 				return 1;
 			}
