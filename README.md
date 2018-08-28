@@ -72,7 +72,7 @@ Desde el directorio de tvhstar ejecuta:
 
 - Directorio `xml`: un ejemplo de xml exportado desde la vieja web (menos mal que lo tenía por ahí perdido, para poder comparar), otro del xml que exporta actualmente y otro xml de una exportación actual "fallida" (un xml sin pases).
 
-##Update desde la versión que reordenaba los pases a la versión actual
+## Update desde la versión que reordenaba los pases a la versión actual
 1. **Haz copia** de tu fichero `parche-epg.sh` actual
 2. Descarga `parche-epg.sh` actualizado y el nuevo `borra_duplis_y_corrige_fecha.js` en tu directorio de tvhstar
 3. Edítalos según las [instrucciones de más arriba](#ficheros-a-descargar-y-editar)
