@@ -42,7 +42,7 @@ Todos se descargan donde tengas instalado tvhstar.
 ficheroXML='/tmp/guia.movistar-xml-TMP.xml' # fichero de destino
 ```
 
-- `borra_duplis_y_ordena.js`: script node.js ejecutado por `parche-epg.sh` para eliminar pases duplicados (la nueva web es un poco "loca" repitiendo pases), ordenarlos por hora dentro de cada día/cadena (vienen medio desordenados desde la web). Edítalo y revisa el valor de:
+- `borra_duplis_y_corrige_fecha.js`: script node.js ejecutado por `parche-epg.sh` para eliminar pases duplicados (la nueva web es un poco "loca" repitiendo pases) y corregir la fecha dentro de cada cadena/día (movistar "considera" que de las 00:00 a las 06:00h, aprox, son pases del mismo día, no del siguiente...). Edítalo y revisa el valor de:
 
 ```
 const ficheroXML = '/tmp/guia.movistar-xml.xml'; // fichero de salida
@@ -61,12 +61,12 @@ Desde el directorio de tvhstar ejecuta:
 ./parche-epg.sh días
 ```
  
-> **días** = número de días que se quieren de la guía, p.ej. /.parche-epg.sh 7
+> **días** = número de días que se quieren de la guía, p.ej. `/.parche-epg.sh 7`
 
-**NO HAY** que ejectuar `tvhstar.sh` después. El script parche-epg lo lanzará cuando termine de descargar y preparar el xml de la guía.
+**NO HAY** que ejectuar `tvhstar.sh` después. El script parche-epg-sh lo lanzará cuando termine de descargar y preparar el xml de la guía.
 
 
 ## Algunos archivos sueltos (NO NECESARIOS PARA EL USO DEL SCRIPT)
 - `estadísticas-ejecución.txt`: algunos números sacados con time de la ejecución de los distintos pasos. Una prueba "borrica" pidiendo 100 días ("sólo" me entregó lo que tenía, del 23/8 al 30/9)... y todo tardó menos de 55s. Desde luego la exportación de la nueva web me parece mucho más rápida que la viejuna.
 
-- Directorio `xml`: un ejemplo de xml exportado desde la vieja web (menos mal que lo tenía por ahí perdido, para poder comparar) y otro del xml que exporta actualmente.
+- Directorio `xml`: un ejemplo de xml exportado desde la vieja web (menos mal que lo tenía por ahí perdido, para poder comparar), otro del xml que exporta actualmente y otro xml de una exportación "fallida" (un xml sin pases).

@@ -7,7 +7,7 @@
 # 1. recibe el número de días a pedir de guía y edita (con perl) el fichero data.xt (usado para petición de curl), cambiando la fecha desde (hoy) y la fecha hasta (hoy+días)
 # 2. descarga (con curl) la guía completa (excepto canales de alquiler) de la web de movistar y guarda el xml en $ficheroXML
 # 3. edita $ficheroXML (con perl) para que tenga el mismo formato que las descargas de la antigua web de exportación de movistar
-# 4. procesa $ficheroXML (con node.js) para eliminar pases repetidos (rarezas de la nueva web, parece ser) y ordenar los pases dentro de cada cadena/día (más rarezas...)
+# 4. procesa $ficheroXML (con node.js) para eliminar pases repetidos (rarezas de la nueva web, parece ser) y corregir las fechas de los pases finales de cada día (más rarezas de movistar...)
 # 5. lanza tvhstar.sh para que haga su magia con el fichero preparado
 
 # control de errores - parámetros recibidos
@@ -36,9 +36,7 @@ desde=`date "+%s"` # fecha actual en formato epoch
 hasta=$((desde+dias))
 
 # conversión a formato yyyy-mm-dd
-# desde=`date -j -r $desde +"%Y-%m-%d"`
-# hasta=`date -j -r $hasta +"%Y-%m-%d"`
-# he pasado a usar perl para la conversión porque el comando date en FreeBSD no funciona igual que en linux
+# pasar las fechas a formato YYYY-MM-DD
 desde=`perl -MPOSIX -le 'print strftime("%Y-%m-%d",localtime($ARGV[0]))' $desde`
 hasta=`perl -MPOSIX -le 'print strftime("%Y-%m-%d",localtime($ARGV[0]))' $hasta`
 
@@ -78,7 +76,7 @@ perl -p -i'.bak' -e "s/<\?xml version=\"1.0\" encoding=\"utf-8\"\?><xml>/<\?xml 
 #	Paso 4 #
 ##########
 
-node borra_duplis_y_ordena.js $ficheroXML
+node borra_duplis_y_corrige_fecha.js $ficheroXML
 
 ##########
 #	Paso 5 #
