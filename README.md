@@ -5,9 +5,9 @@ Estos parches hacen uso de [tvhstar](https://github.com/LuisPalacios/tvhstar) pa
 
 Mi script de bash y el de node.js realizan lo siguiente:
 
-1- descarga un xml con la guía de todos los canales (excepto alquiler) desde la nueva web de movistar, para el número de días que le indiquemos
-2- edición del xml descargado para que tenga un formato entendible por tvhstar y que pueda prepararlo para tvheadend
-3- lanza tvhstar.sh para que procese el xml preparado
+1. descarga un xml con la guía de todos los canales (excepto alquiler) desde la nueva web de movistar, para el número de días que le indiquemos
+2. edición del xml descargado para que tenga un formato entendible por tvhstar y que pueda prepararlo para tvheadend
+3. lanza tvhstar.sh para que procese el xml preparado
 
 ## Aviso
 No esperes código bonito, ni refinado, ni mucho control de errores... me he gastado los ojos investigando, comprendiendo y parcheando como he podido (un poco de bash, otro poco de perl, algo más de node.js...), para poder tener una guía funcional en tvheadend.
@@ -71,3 +71,10 @@ Desde el directorio de tvhstar ejecuta:
 - `estadísticas-ejecución.txt`: algunos números sacados con time de la ejecución de los distintos pasos. Una prueba "borrica" pidiendo 100 días ("sólo" me entregó lo que tenía, del 23/8 al 30/9)... y todo tardó menos de 55s. Desde luego la exportación de la nueva web me parece mucho más rápida que la viejuna.
 
 - Directorio `xml`: un ejemplo de xml exportado desde la vieja web (menos mal que lo tenía por ahí perdido, para poder comparar), otro del xml que exporta actualmente y otro xml de una exportación actual "fallida" (un xml sin pases).
+
+##Update desde la versión que reordenaba los pases a la versión actual
+1. **Haz copia** de tu fichero `parche-epg.sh` actual
+2. Descarga `parche-epg.sh` actualizado y el nuevo `borra_duplis_y_corrige_fecha.js` en tu directorio de tvhstar
+3. Edítalos según las [instrucciones de más arriba](#ficheros-a-descargar-y-editar)
+
+**Nota:** el viejo `borra_duplis_y_ordena.js` ya no se usa.
