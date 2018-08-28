@@ -4,7 +4,8 @@ Parches para descarga y procesado de guía movistar desde nueva web de programac
 Estos parches hacen uso de [tvhstar](https://github.com/LuisPalacios/tvhstar) para el procesado final del xml y que pueda ser consumido por tvheadend. Sólo modifico el archivos src/server.js de tvhstar (¡¡¡haz copia antes de pisarlo!!!).
 
 Mi script de bash y el de node.js realizan lo siguiente:
-1- descarga de un xml con la guía de todos los canales (excepto alquiler) desde la nueva web de movistar, para el número de días que le indiquemos
+
+1- descarga un xml con la guía de todos los canales (excepto alquiler) desde la nueva web de movistar, para el número de días que le indiquemos
 2- edición del xml descargado para que tenga un formato entendible por tvhstar y que pueda prepararlo para tvheadend
 3- lanza tvhstar.sh para que procese el xml preparado
 
@@ -69,4 +70,4 @@ Desde el directorio de tvhstar ejecuta:
 ## Algunos archivos sueltos (NO NECESARIOS PARA EL USO DEL SCRIPT)
 - `estadísticas-ejecución.txt`: algunos números sacados con time de la ejecución de los distintos pasos. Una prueba "borrica" pidiendo 100 días ("sólo" me entregó lo que tenía, del 23/8 al 30/9)... y todo tardó menos de 55s. Desde luego la exportación de la nueva web me parece mucho más rápida que la viejuna.
 
-- Directorio `xml`: un ejemplo de xml exportado desde la vieja web (menos mal que lo tenía por ahí perdido, para poder comparar), otro del xml que exporta actualmente y otro xml de una exportación "fallida" (un xml sin pases).
+- Directorio `xml`: un ejemplo de xml exportado desde la vieja web (menos mal que lo tenía por ahí perdido, para poder comparar), otro del xml que exporta actualmente y otro xml de una exportación actual "fallida" (un xml sin pases).
