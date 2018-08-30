@@ -31,6 +31,7 @@ ficheroXML='/tmp/guia.movistar-xml-TMP.xml' # fichero de destino
 
 ficherodata='data.txt'
 sdias=86400 # segundos por día
+dias=$((dias-1)) # resto un día a los días pedidos
 dias=$((dias*sdias)) # días pedidos pasados a segundos
 desde=`date "+%s"` # fecha actual en formato epoch
 hasta=$((desde+dias))
