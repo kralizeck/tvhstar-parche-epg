@@ -39,13 +39,13 @@ Todos se descargan donde tengas instalado tvhstar.
 
 - `parche-epg.sh`: script principal del invento. Le indicamos el número de días que queremos y él edita el `data.txt`, descarga el xml de movistar, lo "arregla" para que tvhstar lo entienda y lanza tvhstar para que se genere el xml para tvheadend. Edítalo y revisa el valor de:
 
-```
+```bash
 ficheroXML='/tmp/guia.movistar-xml-TMP.xml' # fichero de destino
 ```
 
 - `borra_duplis_y_corrige_fecha.js`: script node.js ejecutado por `parche-epg.sh` para eliminar pases duplicados (la nueva web es un poco "loca" repitiendo pases) y corregir la fecha dentro de cada cadena/día (movistar "considera" que de las 00:00 a las 06:00h, aprox, son pases del mismo día, no del siguiente...). Edítalo y revisa el valor de:
 
-```
+```javascript
 const ficheroXML = '/tmp/guia.movistar-xml.xml'; // fichero de salida
 ```
 		
@@ -58,11 +58,11 @@ Y ya está. No se necesita más. El resto de ficheros son de estadísticas y pru
 ### Ejecución
 Desde el directorio de tvhstar ejecuta:
 
-```
+```bash
 ./parche-epg.sh días
 ```
  
-> **días** = número de días que se quieren de la guía, p.ej. `/.parche-epg.sh 7`
+> **días** = número de días que se quieren de la guía, p.ej. `./parche-epg.sh 7`
 
 **NO HAY** que ejectuar `tvhstar.sh` después. El script parche-epg-sh lo lanzará cuando termine de descargar y preparar el xml de la guía.
 
