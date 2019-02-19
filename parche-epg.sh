@@ -54,8 +54,21 @@ perl -p -i'.bak' -e "s/&export-date-from=.*?&/&export-date-from=$desde&/; s/&exp
 
 echo -e "\nSolicitando la guía desde el $desde al $hasta...\n"
 
+rm $ficheroXML
+touch $ficheroXML # por si falla la comunicación con web  de movistar, que exista el fichero y pueda controlar el error
+
 # descarga del xml de movistar. Todos los canales excepto alquiler - curl en modo silent
 curl -s 'http://comunicacion.movistarplus.es/wp-admin/admin-post.php' -H 'Connection: keep-alive' -H 'Cache-Control: max-age=0' -H 'Origin: http://comunicacion.movistarplus.es' -H 'Upgrade-Insecure-Requests: 1' -H 'Content-Type: application/x-www-form-urlencoded' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8' -H 'Referer: http://comunicacion.movistarplus.es/programacion/' -H 'Accept-Encoding: gzip, deflate' -H 'Accept-Language: es,en;q=0.9,es-ES;q=0.8' --data "@$ficherodata" --compressed -o $ficheroXML
+
+exit_code_curl=$?
+
+## control de errores básico - curl y fichero recibido ##
+
+# si el exit code de curl no es 0 => algo ha ido  mal...
+if [ "$exit_code_curl" -ne "0" ]; then 
+		echo -e ">>>> ERROR CURL <<<< al descargar $ficheroXML - exit code $exit_code_curl\n" # algún error de curl
+		exit
+fi
 
 # control de errores básico - curl
 sizefichero=`perl -le 'print -s $ARGV[0]' $ficheroXML`
@@ -71,13 +84,23 @@ fi
 echo -e "\nConvirtiendo $ficheroXML a formato xml viejuno de exportación de movistar...\n"
 
 # edición del xml recibido para que sea igual que en la antigua exportación de movistar
-perl -p -i'.bak' -e "s/<\?xml version=\"1.0\" encoding=\"utf-8\"\?><xml>/<\?xml version='1.0' encoding='UTF-8' \?>/; s/<\/xml>//g; s/(<export>)/\n        \t\t\t\1/g; s/(<\/pase>)/<web><\/web>\n\t\t\t\t\t\1/g; s/ {24}/\t\t\t\t\t/g; s/&/&amp;/g; s/cadena=\"(.*?)\" fecha=\">(.*?)\"\>/cadena='\1' fecha='\2'>/g;" $ficheroXML
+#2019.02.19 - añado eliminar .>BR designtimesp=''.*?''< (pete al parsear el xml en node)
+perl -p -i'.bak' -e "s/<\?xml version=\"1.0\" encoding=\"utf-8\"\?><xml>/<\?xml version='1.0' encoding='UTF-8' \?>/; s/<\/xml>//g; s/(<export>)/\n        \t\t\t\1/g; s/(<\/pase>)/<web><\/web>\n\t\t\t\t\t\1/g; s/ {24}/\t\t\t\t\t/g; s/&/&amp;/g; s/cadena=\"(.*?)\" fecha=\">(.*?)\"\>/cadena='\1' fecha='\2'>/g; s/>BR designtimesp=''.*?''<//g;" $ficheroXML
 
 ##########
 #	Paso 4 #
 ##########
 
 node borra_duplis_y_corrige_fecha.js $ficheroXML
+
+# control de errores básico del proceso con node.js, si el errorlevel del node es 0=>todo bien, si es 1=> algo ha fallado
+exit_code_node=$?
+echo "Exit code node: $estado"
+if [ $exit_code_node -eq 1 ]; then # si estado es 1, algo ha fallado con el proceso del xml con node
+if [ $intentos -eq 5 ]; then # si estado es 1, algo ha fallado con el proceso del xml con node
+	echo -e ">>>> ERROR <<<< al procesar $ficheroXML con node.js - exit code node: $exit_code_node\n" # error cuando no puede conectar con la página, no hay datos de canales, xml malformado de movistar, etc...
+	exit
+fi
 
 ##########
 #	Paso 5 #
