@@ -70,7 +70,7 @@ if [ "$exit_code_curl" -ne "0" ]; then
 		exit
 fi
 
-# control de errores básico - curl
+# control de errores básico - tamaño fichero
 sizefichero=`perl -le 'print -s $ARGV[0]' $ficheroXML`
 if [ "$sizefichero" -eq 0 ]; then 
 		echo -e ">>>> ERROR <<<< al descargar $ficheroXML - fichero de tamaño $sizefichero\n" # error cuando no puede conectar con la página o no hay datos de canales
@@ -93,12 +93,10 @@ perl -p -i'.bak' -e "s/<\?xml version=\"1.0\" encoding=\"utf-8\"\?><xml>/<\?xml 
 
 node borra_duplis_y_corrige_fecha.js $ficheroXML
 
-# control de errores básico del proceso con node.js, si el errorlevel del node es 0=>todo bien, si es 1=> algo ha fallado
+# control de errores básico - proceso con node.js, si el errorlevel del node es 0=>todo bien, si es 1=> algo ha fallado
 exit_code_node=$?
-echo "Exit code node: $estado"
 if [ $exit_code_node -eq 1 ]; then # si estado es 1, algo ha fallado con el proceso del xml con node
-if [ $intentos -eq 5 ]; then # si estado es 1, algo ha fallado con el proceso del xml con node
-	echo -e ">>>> ERROR <<<< al procesar $ficheroXML con node.js - exit code node: $exit_code_node\n" # error cuando no puede conectar con la página, no hay datos de canales, xml malformado de movistar, etc...
+	echo -e ">>>> ERROR NODE.JS <<<< al procesar $ficheroXML con node.js - exit code node: $exit_code_node\n" # error cuando no puede conectar con la página, no hay datos de canales, xml malformado de movistar, etc...
 	exit
 fi
 
